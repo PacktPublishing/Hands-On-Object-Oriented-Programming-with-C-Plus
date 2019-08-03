@@ -46,19 +46,24 @@ private:
      std::vector<std::string> m_arr; 
 }; 
 
-int main() 
-{ 
-     int numbers[] = {2, 0, 1, 9}; 
-     SmartArray smart_numbers{numbers}; 
-  
-     char letters[] = {'h', 'e', 'l', 'l', 'o'}; 
-     SmartArray smart_letters{letters}; 
-  
-     std::string strings[] = {"hello", "world", "!"}; 
-     SmartArray smart_strings{strings}; 
-  
-     std::cout << smart_letters.toString() << std::endl << smart_numbers.toString() << std::endl << smart_strings.toString() << std::endl; 
+int main()  
+{  
+     auto test = [](const auto& vals) 
+     { 
+        SmartArray smart_vals{vals}; 
+        std::cout << smart_vals.toString() << std::endl; 
+     }; 
 
- 
-     return 0; 
+     auto test_multiple = [&test](const auto&... vals) 
+     { 
+         (test(vals), ...);
+     }; 
+
+     int numbers[] = {2, 0, 1, 9};  
+     char letters[] = {'h', 'e', 'l', 'l', 'o'};  
+     std::string strings[] = {"hello", "world", "!"};  
+
+     test_multiple(numbers, letters, strings); 
+
+     return 0;  
 } 
